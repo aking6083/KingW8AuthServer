@@ -6,7 +6,7 @@
 package business;
 import java.net.*;
 import java.io.*;
-
+import domain.Login;
 /**
  *
  * @author root
@@ -32,14 +32,20 @@ public class ConnectionMgr {
     public boolean startSvr()
     {
         //Start the server.
-     
+        
+        
         try 
         {
             System.out.println("Awaiting Connection");
             server = new ServerSocket(8000, 100);
-            this.socket = server.accept();
-            this.out = new ObjectOutputStream(socket.getOutputStream());
-            this.in = new ObjectInputStream(socket.getInputStream());
+            while (!exit)
+            {
+                this.socket = server.accept();
+                this.out = new ObjectOutputStream(socket.getOutputStream());
+                this.in = new ObjectInputStream(socket.getInputStream());
+               
+                
+            }
         }
         catch (Exception e)
         {

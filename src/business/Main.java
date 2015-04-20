@@ -5,7 +5,9 @@
  */
 package business;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
@@ -20,15 +22,26 @@ public class Main {
     public static void main(String[] args) throws Exception {
         
         boolean authentic = false;
+        
         ConnectionMgr newConn = new ConnectionMgr();
         SocketMgr newSocket = new SocketMgr();
         newConn.startSvr();
+        System.out.println("Getting Obect");
         ObjectInputStream in = newConn.getInStream();
-        
-        authentic = newSocket.valid(in);
-        
-        
-        
+        //System.out.println("Validating Obect");
+        //authentic = newSocket.valid(in);
+        System.out.println("Getting Output");
+        ObjectOutputStream out = newConn.getOutStrean();
+               
+        try
+        {
+            
+            out.writeBoolean(authentic);
+        }
+        catch (IOException ioe)
+        {
+            System.out.println("Error " + ioe.getMessage());
+        }
     }
     
 }
