@@ -6,6 +6,7 @@
 package business;
 import java.io.*;
 import domain.Login;
+import java.util.Arrays;
 
 
 
@@ -23,15 +24,24 @@ public class SocketMgr implements Serializable {
     {
         try {
             Login theLogin = (Login) in.readObject();
-            if (theLogin.getUserName().equals(USER_NAME) && theLogin.getPassword().equals(PASSWORD))
-                return true;
+            if (theLogin.getUserName().equals(USER_NAME))
+            {
+                char[] CH_PASSWORD = PASSWORD.toCharArray();
+                if (theLogin.getPassword() == CH_PASSWORD)
+                {
+                    System.out.println(theLogin.getPassword());
+                    return true;
+                }
+                                       
+                
+            }
             //System.out.println(theLogin.getUserName());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         } 
         
-       return true;
+       return false;
     }
             
 }
