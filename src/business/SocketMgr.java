@@ -20,7 +20,7 @@ public class SocketMgr implements Serializable {
     private static final String USER_NAME = "Adam";
     private static final String PASSWORD = "Jammin";
     
-    public boolean valid(ObjectInputStream in) throws Exception
+    public boolean valid(ObjectInputStream in, ObjectOutputStream out) throws Exception
     {
         boolean isValid = false;
         try {
@@ -28,6 +28,7 @@ public class SocketMgr implements Serializable {
             if (theLogin.getUserName().equals(USER_NAME))
             {
                 isValid = true;
+                out.writeBoolean(isValid);
                 //char[] CH_PASSWORD = PASSWORD.toCharArray();
                 //if (theLogin.getPassword() == CH_PASSWORD)
                 //{

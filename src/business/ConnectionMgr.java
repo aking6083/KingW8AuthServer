@@ -39,11 +39,21 @@ public class ConnectionMgr {
           
     public void startSvr() throws IOException
     {
-        //Start the server.
-        this.socket = server.accept();
-        this.in = new ObjectInputStream(socket.getInputStream());
-        this.out = new ObjectOutputStream(socket.getOutputStream());
-       
+        boolean exit = false;
+        try
+        {
+        while (!exit)
+        {
+            //Start the server.
+            this.socket = server.accept();
+            this.in = new ObjectInputStream(socket.getInputStream());
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+        }
+        }
+        catch (IOException ioe)
+        {
+            System.out.println("ERROR " + ioe.getMessage());
+        }
     }
     
 }

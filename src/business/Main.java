@@ -26,25 +26,10 @@ public class Main {
         ConnectionMgr newConn = new ConnectionMgr();
         SocketMgr newSocket = new SocketMgr();
         newConn.startSvr();
-        authentic = newSocket.valid(newConn.getInStream());
-        //Login tempLogin = (Login) newConn.getInStream().readObject();
-        //System.out.println(tempLogin.getPassword());
-        //ObjectOutputStream out = newConn.getOutStrean();
-        //ObjectInputStream in = newConn.getInStream();
-        //Login testLogin = (Login) in.readObject();
-        //System.out.println(testLogin.getUserName());
-        //System.out.println("Validating Obect");
-        //authentic = newSocket.valid(in);
-        //System.out.println("Getting Output");
-        ObjectOutputStream out =  newConn.getOutStrean();
-        try 
-        {
-        out.writeBoolean(authentic);
-        }
-        catch (IOException ioe)
-        {
-            System.out.println(ioe.getMessage());
-        }
+        authentic = newSocket.valid(newConn.getInStream(),newConn.getOutStrean());
+        
+        
+        
       }
     }
     
