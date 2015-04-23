@@ -17,21 +17,23 @@ import java.util.Arrays;
  * @author root
  */
 public class SocketMgr implements Serializable {
-    private static final String USER_NAME = "Adam King";
+    private static final String USER_NAME = "Adam";
     private static final String PASSWORD = "Jammin";
     
     public boolean valid(ObjectInputStream in) throws Exception
     {
+        boolean isValid = false;
         try {
             Login theLogin = (Login) in.readObject();
             if (theLogin.getUserName().equals(USER_NAME))
             {
-                char[] CH_PASSWORD = PASSWORD.toCharArray();
-                if (theLogin.getPassword() == CH_PASSWORD)
-                {
-                    System.out.println(theLogin.getPassword());
-                    return true;
-                }
+                isValid = true;
+                //char[] CH_PASSWORD = PASSWORD.toCharArray();
+                //if (theLogin.getPassword() == CH_PASSWORD)
+                //{
+                //    System.out.println(theLogin.getPassword());
+                 //   return true;
+               // }
                                        
                 
             }
@@ -41,7 +43,7 @@ public class SocketMgr implements Serializable {
             return false;
         } 
         
-       return false;
+       return isValid;
     }
             
 }

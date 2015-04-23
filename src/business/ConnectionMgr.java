@@ -12,15 +12,23 @@ import domain.Login;
  * @author root
  */
 public class ConnectionMgr {
-    /*
-    the connection manager is responsible for communication with the client. 
-    It passes the client entered username/password to the socket manager and 
-    sends back the authentication result to the client - via sockets.
-    */
+
         ServerSocket server = null;
         Socket socket = null;
         ObjectInputStream in = null;
         ObjectOutputStream out = null;
+
+    public ConnectionMgr() throws IOException {
+        try 
+        {
+            this.server = new ServerSocket(8000, 100);
+            
+        }
+        catch (IOException ioe)
+        {
+            System.out.println("ERROR " + ioe.getMessage());
+        }
+    }
         
     public ObjectInputStream getInStream()
     {return this.in;}
@@ -29,31 +37,13 @@ public class ConnectionMgr {
     {return this.out;}
     
           
-    public boolean startSvr()
+    public void startSvr() throws IOException
     {
         //Start the server.
-        
-        
-        try 
-        {
-            System.out.println("Awaiting Connection");
-            server = new ServerSocket(8000, 100);
-            while (!exit)
-            {
-                this.socket = server.accept();
-                this.out = new ObjectOutputStream(socket.getOutputStream());
-                this.in = new ObjectInputStream(socket.getInputStream());
-               
-                
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    
-    
-    return true;
+        this.socket = server.accept();
+        this.in = new ObjectInputStream(socket.getInputStream());
+        this.out = new ObjectOutputStream(socket.getOutputStream());
+       
     }
+    
 }
