@@ -5,10 +5,6 @@
  */
 package business;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import domain.Login;
 /**
  *
  * @author root
@@ -17,20 +13,17 @@ public class Main {
 
     /**
      * @param args the command line arguments
-     * @throws java.lang.Exception
+     * 
      */
-    public static void main(String[] args) throws Exception {
-        
-        boolean authentic = false;
-        
-        ConnectionMgr newConn = new ConnectionMgr();
-        SocketMgr newSocket = new SocketMgr();
-        newConn.startSvr();
-        authentic = newSocket.valid(newConn.getInStream(),newConn.getOutStrean());
-        
-        
-        
-      }
+        public static void main(String[] args) 
+        {
+            try {
+                ConnectionMgr.startSvr();
+            }
+            catch (Exception ex) {
+                System.out.println("Exception " + ex.getMessage());
+            }
+        }
     }
     
 

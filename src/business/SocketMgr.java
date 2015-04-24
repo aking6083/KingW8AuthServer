@@ -6,6 +6,7 @@
 package business;
 import java.io.*;
 import domain.Login;
+import java.net.Socket;
 import java.util.Arrays;
 
 
@@ -20,15 +21,22 @@ public class SocketMgr implements Serializable {
     private static final String USER_NAME = "Adam";
     private static final String PASSWORD = "Jammin";
     
-    public boolean valid(ObjectInputStream in, ObjectOutputStream out) throws Exception
+    public static boolean valid(Socket socket) throws Exception
     {
+        ObjectInputStream in = null;
+        ObjectOutputStream out = null;
+        
         boolean isValid = false;
         try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             Login theLogin = (Login) in.readObject();
             if (theLogin.getUserName().equals(USER_NAME))
             {
                 isValid = true;
                 out.writeBoolean(isValid);
+                in.close();
+                //out.close();
                 //char[] CH_PASSWORD = PASSWORD.toCharArray();
                 //if (theLogin.getPassword() == CH_PASSWORD)
                 //{
@@ -38,13 +46,20 @@ public class SocketMgr implements Serializable {
                                        
                 
             }
+            else
+            {
+                isValid = false;
+                out.writeBoolean(isValid);
+            }
+            //in.close();
+            //out.close();
             //System.out.println(theLogin.getUserName());
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            
         } 
         
-       return isValid;
+       return false;
     }
             
 }
