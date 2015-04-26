@@ -20,15 +20,17 @@ public class ConnectionMgr {
         Socket socket = null;
         ObjectInputStream in = null;
         ObjectOutputStream out = null;
-       
+        Thread myThread = new Thread();
+        SocketMgr socketMgr = new SocketMgr();
         boolean run = true;
         
         server = new ServerSocket(8000,100);
         while(run) {
             System.out.println("Waiting for connection");
-            socket = server.accept();
+            socketMgr.setSocket(server.accept()); 
             System.out.println("Connection accepted");
-            boolean temp = SocketMgr.valid(socket);
+            Thread socketThread = new Thread(socketMgr);
+            socketThread.start();
             
         }
         
